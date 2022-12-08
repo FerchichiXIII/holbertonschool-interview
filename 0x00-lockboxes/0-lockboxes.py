@@ -6,7 +6,7 @@
 def canUnlockAll(boxes):
     """can unlock alll"""
 
-    newlist = []
+    newlist = [0]
     k = len(boxes)
     for i in boxes:
         if len(i) == 0 and i is not boxes[k-1]:
