@@ -14,9 +14,8 @@
     listint_t *s;
 
     if (list == NULL || list->next == NULL)
-    {
         return (0);
-    }
+
     f = list;
     s = list;
     
@@ -25,9 +24,7 @@
         s = s->next->next;
         f = f->next;
         if (s == f)
-        {
             return (1);
-        }
     }
     return (0);
 
