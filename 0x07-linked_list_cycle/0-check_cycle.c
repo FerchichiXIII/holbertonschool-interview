@@ -9,27 +9,26 @@
  */
 
  int check_cycle(listint_t *list)
- {
-	listint_t *a;
-	listint_t *b;
+{
+	listint_t *tortoise = NULL, *hare = NULL;
 
 	if (list == NULL || list->next == NULL)
-	/* if list is NULL or empty, return 0 for no cycle */
 		return (0);
-	/* set slow moving pointer to start of list */
-	a = list;
-	/* set fast moving pointer to the next node */
-	b = list;
-	/* ensure hare can move forward two spots without segfaulting */
-	while (b != NULL)
+
+	tortoise = list;
+	hare = list->next;
+
+	while (hare && hare->next)
 	{
-		/* if both pointers ever point to same node, a cycle is found */
-		b = b->next->next;
-		a = a->next;
-		if (b == a)
+		if (tortoise == hare)
 			return (1);
-			/* otherwise, slow pointer moves forward one node */
+
+		tortoise = tortoise->next;
+		hare = hare->next->next;
+
 	}
-	/* return 0 if made to end of the list and did not find a match */
+	if (hare && tortoise == hare)
+		return (1);
+
 	return (0);
 }
