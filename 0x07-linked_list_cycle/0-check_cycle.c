@@ -13,21 +13,22 @@
     listint_t *f;
     listint_t *s;
 
-    while (list != NULL && list->next != NULL)
+    if (list == NULL || list->next == NULL)
     {
-        s = s->next;
-        if (f->next == NULL)
-        {
-            return (0);
-        }
+        return (0);
+    }
+    f = list;
+    s = list;
+    
+    while (s != NULL)
+    {
+        s = s->next->next;
         f = f->next;
-
-        if (f ==s)
+        if (s == f)
         {
-            return(1);
+            return (1);
         }
     }
-    
     return (0);
 
  }
