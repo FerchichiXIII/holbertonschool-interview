@@ -10,22 +10,21 @@
 
  int check_cycle(listint_t *list)
  {
-    listint_t *f;
-    listint_t *s;
+	listint_t *a;
+	listint_t *b;
 
-    if (list == NULL || list->next == NULL)
-        return (0);
+	if (list == NULL || list->next == NULL)
+		return (0);
 
-    f = list;
-    s = list;
-    
-    while (s != NULL)
-    {
-        s = s->next->next;
-        f = f->next;
-        if (s == f)
-            return (1);
-    }
-    return (0);
+	a = list;
+	b = list;
 
- }
+	while (b != NULL)
+	{
+		b = b->next->next;
+		a = a->next;
+		if (b == a)
+			return (1);
+	}
+	return (0);
+}
