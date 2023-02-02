@@ -14,17 +14,22 @@
 	listint_t *b;
 
 	if (list == NULL || list->next == NULL)
+	/* if list is NULL or empty, return 0 for no cycle */
 		return (0);
-
+	/* set slow moving pointer to start of list */
 	a = list;
+	/* set fast moving pointer to the next node */
 	b = list;
-
+	/* ensure hare can move forward two spots without segfaulting */
 	while (b != NULL)
 	{
+		/* if both pointers ever point to same node, a cycle is found */
 		b = b->next->next;
 		a = a->next;
 		if (b == a)
 			return (1);
+			/* otherwise, slow pointer moves forward one node */
 	}
+	/* return 0 if made to end of the list and did not find a match */
 	return (0);
 }
