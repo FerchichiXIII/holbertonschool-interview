@@ -5,18 +5,26 @@
  * @grid: int
  * 
  * 
- * Return: grid
+ * Return: void fun
 */
 
 void print_grid(int grid[3][3]) {
     printf("Sandpile:\n");
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            printf("%d ", grid[i][j]);
+            grid1[i][j] += grid2[i][j];
         }
-        printf("\n");
     }
 }
+
+/**
+ * topple - function
+ * @grid: int
+ * @x: int
+ * @y: int
+ *
+ * Return: void fun
+*/
 
 void topple(int grid[3][3], int x, int y) {
     grid[x][y] -= 4;
