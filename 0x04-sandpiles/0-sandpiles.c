@@ -4,10 +4,8 @@
  * grid_add - adds grid
  * @grid1: grid1
  * @grid2: grid2
- * Return: void
+ * Return: void function
  */
-
-
 void grid_add(int grid1[3][3], int grid2[3][3])
 {
 	int i;
@@ -28,7 +26,7 @@ void grid_add(int grid1[3][3], int grid2[3][3])
 /**
  * isGridStable - stability of sandpile
  * @grid1: grid
- * Return: void
+ * Return: void function
  */
 int isGridStable(int grid1[3][3])
 {
@@ -46,7 +44,7 @@ int isGridStable(int grid1[3][3])
 /**
  * print_grid - displays grid
  * @grid: grid
- * Return: void
+ * Return: void function
  */
 static void print_grid(int grid[3][3])
 {
@@ -68,7 +66,7 @@ static void print_grid(int grid[3][3])
 /**
  * tupple_grid - tupples the sands
  * @grid1: grid
- * Return: void
+ * Return: void function
  */
 void tupple_grid(int grid1[3][3])
 {
@@ -105,7 +103,7 @@ void tupple_grid(int grid1[3][3])
  * sandpiles_sum - summarize sandpile
  * @grid1: grid1
  * @grid2: grid2
- * Return: void
+ * Return: void function
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
