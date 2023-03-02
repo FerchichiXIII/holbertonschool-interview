@@ -7,7 +7,7 @@
  * Return: void
  */
 
- 
+
 void grid_add(int grid1[3][3], int grid2[3][3])
 {
 	int i;
