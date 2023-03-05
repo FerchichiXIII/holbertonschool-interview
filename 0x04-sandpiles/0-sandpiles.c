@@ -6,8 +6,10 @@
  * @grid2: grid2
  * Return: void function
  */
+
 void grid_add(int grid1[3][3], int grid2[3][3])
 {
+
 	int i;
 	int j;
 
