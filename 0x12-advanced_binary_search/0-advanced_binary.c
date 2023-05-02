@@ -9,33 +9,33 @@
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-    int low = 0; /* Low index of the search range */
-    int high = size - 1; /* High index of the search range */
-    int mid; /* Middle index of the search range */
-    int i; /* Loop index */
+    int low = 0;
+    int high = size - 1;
+    int mid;
+    int i;
 
-    if (array == NULL || size == 0) /* Check for invalid input */
+    if (array == NULL || size == 0)
         return (-1);
 
-    while (low <= high) /* Loop until search range is exhausted */
+    while (low <= high)
     {
-        printf("Searching in array: "); /* Print current search range */
+        printf("Searching in array: ");
         for (i = low; i < high; i++)
             printf("%d, ", array[i]);
         printf("%d\n", array[high]);
 
-        mid = (low + high) / 2; /* Calculate middle index */
+        mid = (low + high) / 2;
 
-        if (array[mid] == value) /* Check if value is found */
+        if (array[mid] == value)
         {
-            if (mid == 0 || array[mid - 1] < value) /* Check if first occurrence */
-                return (mid); /* Return index */
+            if (mid == 0 || array[mid - 1] < value)
+                return (mid);
             else
-                high = mid - 1; /* Search left half */
+                high = mid - 1;
         }
-        else if (array[mid] < value) /* Value is in right half */
+        else if (array[mid] < value)
             low = mid + 1;
-        else /* Value is in left half */
+        else
             high = mid - 1;
     }
 
