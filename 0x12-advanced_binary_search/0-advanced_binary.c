@@ -1,43 +1,57 @@
+#include <stdio.h>
 #include "search_algos.h"
 
 /**
- * advanced_binary - Searches for a value in a sorted array of integers
- * @array: Pointer to the first element of the array
- * @size: Number of elements in array
+ * print_array - Print the array being searched
+ * @array: Array to print
+ * @left: Left index of the @array to print
+ * @right: Right index of the @array to print
+ */
+void print_array(int *array, size_t left, size_t right)
+{
+    size_t i;
+
+    printf("Searching in array: ");
+    for (i = left; i <= right; i++)
+    {
+        printf("%d", array[i]);
+        if (i != right)
+            printf(", ");
+    }
+    printf("\n");
+}
+
+/**
+ * advanced_binary - Search for a value in a sorted array of integers
+ * @array: Array to search in
+ * @size: Number of elements in the @array
  * @value: Value to search for
- * Return: Index where value is located or -1 if not found
+ *
+ * Return: Index where @value is located, or -1 if @value is not present in @array
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-    int low = 0;
-    int high = size - 1;
-    int mid;
-    int i;
+    size_t left = 0, right = size - 1, mid;
 
-    if (array == NULL || size == 0)
+    if (!array)
         return (-1);
 
-    while (low <= high)
+    while (left <= right)
     {
-        printf("Searching in array: ");
-        for (i = low; i < high; i++)
-            printf("%d, ", array[i]);
-        printf("%d\n", array[high]);
+        mid = (left + right) / 2;
+        print_array(array, left, right);
 
-        mid = (low + high) / 2;
-
-        if (array[mid] == value)
-        {
-            if (mid == 0 || array[mid - 1] < value)
-                return (mid);
-            else
-                high = mid - 1;
-        }
-        else if (array[mid] < value)
-            low = mid + 1;
+        if (array[mid] < value)
+            left = mid + 1;
+        else if (array[mid] > value)
+            right = mid - 1;
         else
-            high = mid - 1;
+        {
+            if (mid == 0 || array[mid - 1] != value)
+                return (mid);
+            right = mid;
+        }
     }
 
-    return (-1); /* Value not found */
+    return (-1);
 }
