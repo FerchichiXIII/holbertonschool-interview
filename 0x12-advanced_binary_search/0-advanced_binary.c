@@ -9,10 +9,14 @@
  *
  * Return: index where value is located or -1 if not found or array is NULL
  */
+
 int advanced_binary(int *array, size_t size, int value)
+
 {
-    int half = ((size - 1) / 2), result = 0;
+
 	size_t i = 0;
+
+	int half = ((size - 1) / 2), result = 0;
 
 	if (array == NULL || size < 1)
 		return (-1);
