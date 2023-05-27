@@ -9,9 +9,9 @@
 
 void grid_add(int grid1[3][3], int grid2[3][3])
 {
+
 	int i;
 	int j;
-
 
 	for (i = 0; i < 3; i++)
 	{
@@ -21,8 +21,6 @@ void grid_add(int grid1[3][3], int grid2[3][3])
 		}
 	}
 }
-
-
 
 /**
  * isGridStable - stability of sandpile
@@ -116,5 +114,4 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		print_grid(grid1);
 		tupple_grid(grid1);
 	}
-
 }
