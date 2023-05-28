@@ -4,7 +4,9 @@ import requests
 
 
 def count_words(subreddit, word_list, after=None, count_dict=None):
-
+    """
+    Function to count reddit subreddits
+    """
     if count_dict is None:
         count_dict = {}
 
