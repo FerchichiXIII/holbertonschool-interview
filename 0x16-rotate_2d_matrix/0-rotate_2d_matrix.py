@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+"""2D Matrix"""
+
 
 def rotate_2d_matrix(matrix):
+    """Rotate 2D Matrix"""
     n = len(matrix)
 
     for i in range(n):
