@@ -94,18 +94,3 @@ void _print_number(char *number)
 
     _putchar('\n');
 }
-/**
- * _strlen - Calculate the length of a string
- * @s: The input string
- *
- * Return: The length of the string
- */
-int _strlen(char *s)
-{
-    int i = 0;
-
-    while (s[i])
-        i++;
-
-    return (i);
-}
