@@ -4,6 +4,7 @@
  * swap_values - Swaps the values of two nodes
  * @node1: First node
  * @node2: Second node
+ * Return: NULL
  */
 void swap_values(heap_t *node1, heap_t *node2)
 {
@@ -59,6 +60,7 @@ heap_t *get_last_node(heap_t *root)
 /**
  * heapify_down - Fixes the heap property downwards from the root
  * @root: Pointer to the root node of the heap
+ * Return: nothing
  */
 void heapify_down(heap_t **root)
 {
