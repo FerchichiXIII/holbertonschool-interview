@@ -7,11 +7,11 @@
  */
 void swap_values(heap_t *node1, heap_t *node2)
 {
-    int temp;
+	int temp;
 
-    temp = node1->n;
-    node1->n = node2->n;
-    node2->n = temp;
+	temp = node1->n;
+	node1->n = node2->n;
+	node2->n = temp;
 }
 
 /**
@@ -21,9 +21,9 @@ void swap_values(heap_t *node1, heap_t *node2)
  */
 heap_t *get_parent(heap_t *node)
 {
-    if (node && node->parent)
-        return (node->parent);
-    return (NULL);
+	if (node && node->parent)
+		return (node->parent);
+	return (NULL);
 }
 
 /**
@@ -33,27 +33,27 @@ heap_t *get_parent(heap_t *node)
  */
 heap_t *get_last_node(heap_t *root)
 {
-    int size;
-    int i;
-    heap_t *queue[100];
-    heap_t *node;
+	int size;
+	int i;
+	heap_t *queue[100];
+	heap_t *node;
 
-    if (!root)
-        return (NULL);
+	if (!root)
+		return (NULL);
 
-    size = 0;
-    queue[size++] = root;
+	size = 0;
+	queue[size++] = root;
 
-    for (i = 0; i < size; ++i)
-    {
-        node = queue[i];
-        if (node->left)
-            queue[size++] = node->left;
-        if (node->right)
-            queue[size++] = node->right;
-    }
+	for (i = 0; i < size; ++i)
+	{
+		node = queue[i];
+		if (node->left)
+			queue[size++] = node->left;
+		if (node->right)
+			queue[size++] = node->right;
+	}
 
-    return (node);
+	return (node);
 }
 
 /**
@@ -62,30 +62,30 @@ heap_t *get_last_node(heap_t *root)
  */
 void heapify_down(heap_t **root)
 {
-    heap_t *node;
-    heap_t *largest;
+	heap_t *node;
+	heap_t *largest;
 
-    if (!root || !*root)
-        return;
+	if (!root || !*root)
+		return;
 
-    node = *root;
+	node = *root;
 
-    while (1)
-    {
-        largest = node;
+	while (1)
+	{
+		largest = node;
 
-        if (node->left && node->left->n > largest->n)
-            largest = node->left;
+		if (node->left && node->left->n > largest->n)
+			largest = node->left;
 
-        if (node->right && node->right->n > largest->n)
-            largest = node->right;
+		if (node->right && node->right->n > largest->n)
+			largest = node->right;
 
-        if (largest == node)
-            break;
+		if (largest == node)
+			break;
 
-        swap_values(node, largest);
-        node = largest;
-    }
+		swap_values(node, largest);
+		node = largest;
+	}
 }
 
 /**
@@ -95,42 +95,36 @@ void heapify_down(heap_t **root)
  */
 int heap_extract(heap_t **root)
 {
-    int value;
-    heap_t *last_node;
+	int value;
+	heap_t *last_node;
 
-    if (!root || !*root)
-        return (0);
-
-    value = (*root)->n;
-    last_node = get_last_node(*root);
-
-    if (last_node->parent)
-    {
-        if (last_node->parent->left == last_node)
-            last_node->parent->left = NULL;
-        else
-            last_node->parent->right = NULL;
-    }
-    else
-    {
-        *root = NULL;
-    }
-
-    if (*root != last_node)
-    {
-        last_node->parent = NULL;
-        last_node->left = (*root)->left;
-        last_node->right = (*root)->right;
-
-        if (last_node->left)
-            last_node->left->parent = last_node;
-        if (last_node->right)
-            last_node->right->parent = last_node;
-
-        *root = last_node;
-        heapify_down(root);
-    }
-
-    free(last_node);
-    return (value);
+	if (!root || !*root)
+		return (0);
+	value = (*root)->n;
+	last_node = get_last_node(*root);
+	if (last_node->parent)
+	{
+		if (last_node->parent->left == last_node)
+			last_node->parent->left = NULL;
+		else
+			last_node->parent->right = NULL;
+	}
+	else
+	{
+		*root = NULL;
+	}
+	if (*root != last_node)
+	{
+		last_node->parent = NULL;
+		last_node->left = (*root)->left;
+		last_node->right = (*root)->right;
+		if (last_node->left)
+			last_node->left->parent = last_node;
+		if (last_node->right)
+			last_node->right->parent = last_node;
+		*root = last_node;
+		heapify_down(root);
+	}
+	free(last_node);
+	return (value);
 }
