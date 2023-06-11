@@ -1,96 +1,103 @@
 #include "holberton.h"
 
 /**
- * main - Entry point
- * @argc: Number of command-line arguments
- * @argv: Array of command-line argument strings
- *
- * Return: 0 on success, 98 on failure
+ * _puts - print each string number
+ * @s: string. number
+ * Return: void
  */
-int main(int argc, char **argv)
+void _puts(char *s)
 {
-    char *num1, *num2;
-
-    if (argc != 3)
+    if (*s != '\0')
     {
-        _putchar('E');
-        _putchar('r');
-        _putchar('r');
-        _putchar('o');
-        _putchar('r');
-        _putchar('\n');
-        return (98);
+        _putchar(*s);
+        puts(s + 1);
     }
-
-    num1 = argv[1];
-    num2 = argv[2];
-
-    multiply(num1, num2);
-
-    return (0);
 }
-
 /**
- * multiply - Multiply two positive numbers
- * @num1: First number
- * @num2: Second number
+ * _isdigit - check if s is a number or not.
+ * @s: string to check.
+ * Return: 0 if s is a number otherwise 1.
  */
-void multiply(char *num1, char *num2)
+int _isdigit(char *s)
 {
-    int len1, len2, len, i, j, k;
-    char *result; /* Change data type to char* */
-    int carry, n1, n2, sum;
+    int i, digit = 0;
 
-    len1 = _strlen(num1);
-    len2 = _strlen(num2);
-    len = len1 + len2;
-    result = malloc(sizeof(char) * (len + 1)); /* Allocate space for null terminator */
-    if (result == NULL)
+    for (i = 0; s[i] && !digit; i++)
+    {
+        if (s[i] < '0' || s[i] > '9')
+            digit++;
+    }
+    return (digit);
+}
+/**
+ * operations - multiplies, adds and stores the result in a string.
+ * @num1: first number.
+ * @num2: second number.
+ * @len1: length of num1.
+ * @len2: length of num2.
+ * Return: result of multiplies.
+ */
+char *operations(char *num1, char *num2, int len1, int len2)
+{
+    char *result = NULL;
+    int i, j, carry, len_total = (len1 + len2);
+
+    result = malloc(sizeof(char) * len_total);
+    if (!result)
+    {
+        _puts("Error");
         exit(98);
-
-    for (i = 0; i < len; i++)
-        result[i] = '0'; /* Initialize result array with '0' */
-
-    result[len] = '\0'; /* Add null terminator at the end */
-
+    }
+    for (i = 0; i < len_total; i++)
+        result[i] = '0';
     for (i = len1 - 1; i >= 0; i--)
     {
         carry = 0;
-        n1 = num1[i] - '0';
-
-        for (j = len2 - 1, k = len - len1 + i; j >= 0; j--, k--)
+        for (j = len2 - 1; j >= 0; j--)
         {
-            n2 = num2[j] - '0';
-            sum = (n1 * n2) + (result[k] - '0') + carry;
-            carry = sum / 10;
-            result[k] = (sum % 10) + '0';
+            carry += (num1[i] - '0') * (num2[j] - '0');
+            carry += result[i + j + 1] - '0';
+            result[i + j + 1] = (carry % 10) + '0';
+            carry /= 10;
         }
-
-        if (carry > 0)
-            result[k] += carry;
+        if (carry)
+            result[i + j + 1] = (carry % 10) + '0';
     }
-
-    _print_number(result);
-    free(result);
+    return (result);
 }
-
-void _print_number(char *number)
+/**
+ * main - multiplies two positive numbers.
+ * description: Usage: mul num1 num2
+ * Print the result, followed by a new line.
+ * @av: arguments value (num1, num2)
+ * @ac: arguments count
+ * Return: 0 if success otherwise 98 and print Error.
+ */
+int main(int ac, char **av)
 {
-    int i, start;
+    int len1 = 0, len2 = 0;
+    char *num1 = av[1], *num2 = av[2], *result = NULL;
 
-    start = 0;
-
-    for (i = 0; number[i] == '0' && number[i + 1]; i++)
-        ;
-
-    for (; i < _strlen(number); i++)
+    if (ac != 3 || _isdigit(num1) || _isdigit(num2))
     {
-        _putchar(number[i]);
-        start = 1;
+        _puts("Error");
+        exit(98);
     }
+    if (av[1][0] == 48 || av[2][0] == 48)
+    {
+        _puts("0");
+        exit(0);
+    }
+    while (num1[len1])
+        len1++;
+    while (num2[len2])
+        len2++;
 
-    if (start == 0)
-        _putchar('0');
-
-    _putchar('\n');
+    result = operations(num1, num2, len1, len2);
+    if (result[0] == '0')
+        _puts(result + 1);
+    else
+        _puts(result);
+    free(result);
+    return (0);
 }
