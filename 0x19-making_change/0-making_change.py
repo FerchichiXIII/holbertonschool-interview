@@ -8,9 +8,7 @@
 
 def makeChange(coins, total):
     """Make Chanhe"""
-    if total < 0:
-        return 0
-    if total == 0:
+    if total <= 0:
         return 0
 
     dp = [float('inf')] * (total + 1)
