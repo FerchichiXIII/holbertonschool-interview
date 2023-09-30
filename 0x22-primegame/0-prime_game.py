@@ -1,7 +1,12 @@
 #!/usr/bin/python3
+"""Prime Game"""
+
 
 def isWinner(x, nums):
+    """IsWinner"""
+
     def is_prime(num):
+        """is winner"""
         if num <= 1:
             return False
         if num <= 3:
@@ -16,6 +21,7 @@ def isWinner(x, nums):
         return True
 
     def can_win(n):
+        """can win"""
         if n <= 1:
             return False
         if n <= 2:
