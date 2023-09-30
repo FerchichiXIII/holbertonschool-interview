@@ -1,44 +1,42 @@
 #!/usr/bin/python3
-import praw
+"""Cont world"""
+import requests
 
 
-def count_words(subreddit, word_list, results=None):
-    if results is None:
-        results = {}
+def count_words(subreddit, word_list, after=None, count_dict=None):
+    """
+    Function to count reddit subreddits
+    """
+    if count_dict is None:
+        count_dict = {}
 
-    reddit = praw.Reddit(
-        client_id='YOUR_CLIENT_ID',
-        client_secret='YOUR_CLIENT_SECRET',
-        user_agent='YOUR_USER_AGENT'
-    )
+    if after is None:
+        url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    else:
+        url = "https://www.reddit.com/r/{}/hot.json?after={}".format(
+            subreddit, after)
 
-    try:
-        subreddit = reddit.subreddit(subreddit)
-        hot_articles = subreddit.hot(limit=10)
-    except Exception:
-        return
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    for article in hot_articles:
-        title = article.title.lower()
+    if response.status_code == 200:
+        data = response.json()
+        posts = data['data']['children']
+        for post in posts:
+            title = post['data']['title']
+            words = title.lower().split()
+            for word in word_list:
+                if word.lower() in words:
+                    count_dict[word] = count_dict.get(
+                        word, 0) + words.count(word.lower())
 
-        for word in word_list:
-            word = word.lower()
+        after = data['data']['after']
+        if after is not None:
+            return count_words(subreddit, word_list, after, count_dict)
+    else:
+        pass
 
-            if word.endswith(('.', '!', '_')):
-                continue
-
-            count = title.count(word)
-
-            if count > 0:
-                results[word] = results.get(word, 0) + count
-
-    if not results:
-        return
-
-    sorted_results = sorted(
-        results.items(),
-        key=lambda x: (-x[1], x[0])
-    )
-
-    for word, count in sorted_results:
-        print(f"{word}: {count}")
+    sorted_counts = sorted(count_dict.items(), key=lambda x: (-x[1], x[0]))
+    for word, count in sorted_counts:
+        print("{}: {}".format(word.lower(), count))
