@@ -40,17 +40,18 @@ void heapify(binary_tree_t *new_root)
  * @new_root: head of the heap tree
  * Return: all the nodes in heap tree
  */
+
 int get_num_nodes(heap_t *new_root)
 {
 	int left_count = 0, right_count = 0;
 
 	if (!new_root)
-		return 0;
+		return (0);
 
 	left_count = get_num_nodes(new_root->left);
 	right_count = get_num_nodes(new_root->right);
 
-	return 1 + left_count + right_count;
+	return (1 + left_count + right_count);
 }
 
 /**
@@ -77,7 +78,7 @@ binary_tree_t *get_last_node(heap_t *new_root)
 			last_node = last_node->left;
 	}
 
-	return last_node;
+	return (last_node);
 }
 
 /**
@@ -91,39 +92,36 @@ int heap_extract(heap_t **root)
 	int extracted_num = 0;
 
 	if (!root || !*root)
-		return 0;
-
+		return (0);
 	new_head_node = *root;
-
 	if (!new_head_node->left && !new_head_node->right)
 	{
 		extracted_num = new_head_node->n;
 		free(new_head_node);
 		*root = NULL;
-		return extracted_num;
+		return (extracted_num);
 	}
-
 	new_head_node = *root;
 	extracted_num = new_head_node->n;
-
 	last_node = get_last_node(*root);
-
 	if (last_node->parent->left == last_node)
 		last_node->parent->left = NULL;
 	else
 		last_node->parent->right = NULL;
-
 	last_node->left = new_head_node->left;
 	last_node->right = new_head_node->right;
 	last_node->parent = new_head_node->parent;
 
-	if (new_head_node->left) {new_head_node->left->parent = last_node;}
-	if (new_head_node->right) {new_head_node->right->parent = last_node;}
-
+	if (new_head_node->left)
+	{
+		new_head_node->left->parent = last_node;
+	}
+	if (new_head_node->right)
+	{
+		new_head_node->right->parent = last_node;
+	}
 	*root = last_node;
 	free(new_head_node);
-
 	heapify(*root);
-
 	return (extracted_num);
 }
