@@ -14,8 +14,8 @@ request(Url, async (error, response, body) => {
 				if (error) {
 					console.log(error);
 				}
-				const formatedResponse = JSON.parse(body);
-				console.log(formatedResponse.name);
+				const formattedResponse = JSON.parse(body);
+				console.log(formattedResponse.name);
 				resolve();
 			});
 		});
